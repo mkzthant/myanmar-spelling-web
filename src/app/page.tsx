@@ -135,17 +135,19 @@ export default function Home() {
 
   return (
     <main className="container">
-      <button 
-        className="theme-toggle" 
-        onClick={toggleTheme}
-        aria-label="Toggle Dark/Light Mode"
-        title="Toggle Theme"
-      >
-        {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-      </button>
 
       <div className="header">
-        <h1>မြန်မာစာလုံးပေါင်းသတ်ပုံကျမ်း</h1>
+        <div className="header-top">
+          <h1>မြန်မာစာလုံးပေါင်းသတ်ပုံကျမ်း</h1>
+          <button 
+            className="theme-toggle" 
+            onClick={toggleTheme}
+            aria-label="Toggle Dark/Light Mode"
+            title="Toggle Theme"
+          >
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+          </button>
+        </div>
         <p>Myanmar Spelling Dictionary (2003 Reference)</p>
         
         <div className="search-container">
