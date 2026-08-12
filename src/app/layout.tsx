@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Padauk } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const padauk = Padauk({
+  variable: "--font-padauk",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  themeColor: "#121212",
+};
 
 export const metadata: Metadata = {
   title: "မြန်မာစာလုံးပေါင်းသတ်ပုံ | Myanmar Spelling Dictionary",
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "မြန်မာစာလုံးပေါင်းသတ်ပုံ | Myanmar Spelling Dictionary",
     description: "မြန်မာစာအဖွဲ့မှ ထုတ်ဝေသော စာလုံးပေါင်းသတ်ပုံကျမ်း (၂၀၀၃) ကို အလွယ်တကူ ရှာဖွေနိုင်သော Web App",
-    url: "https://mkzthant.github.io/",
-    siteName: "Myanmar Spelling Dictionary",
+    url: "https://mm-spelling.mnote.pp.ua/",
+    siteName: "မြန်မာစာလုံးပေါင်းသတ်ပုံ",
     images: [
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Myanmar_Seal.svg/512px-Myanmar_Seal.svg.png",
+        url: "https://mm-spelling.mnote.pp.ua/icon.svg",
         width: 512,
         height: 512,
       },
@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     type: "website",
   },
   manifest: "/manifest.json",
-  themeColor: "#121212",
 };
 
 export default function RootLayout({
@@ -45,7 +44,7 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icon.svg" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={padauk.variable}>
         {children}
         <script
           dangerouslySetInnerHTML={{

@@ -213,7 +213,7 @@ p {
   font-size: 0.95rem;
   color: var(--text-muted);
   font-family: 'Padauk', sans-serif;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-hover);
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   display: inline-block;
@@ -334,6 +334,13 @@ p {
   justify-content: center;
   margin-left: auto;
   opacity: 0;
+  flex-shrink: 0;
+}
+/* Always show copy button on touch devices */
+@media (hover: none) {
+  .copy-btn {
+    opacity: 1;
+  }
 }
 .word-card:hover .copy-btn {
   opacity: 1;

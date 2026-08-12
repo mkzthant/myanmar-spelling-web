@@ -100,7 +100,7 @@ export default function Home() {
   const filteredWords = useMemo(() => {
     if (search) {
       // Fuzzy search using Fuse.js
-      return fuse.search(search).map(result => result.item).slice(0, 500);
+      return fuse.search(search).map(result => result.item);
     }
     
     // Otherwise, filter by the active alphabet
