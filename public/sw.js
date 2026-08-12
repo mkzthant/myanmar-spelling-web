@@ -1,10 +1,10 @@
-const CACHE_NAME = 'myanmar-spelling-cache-v2';
-const basePath = '/myanmar-spelling-web';
+const CACHE_NAME = 'myanmar-spelling-cache-v3';
+const basePath = '';
 
 const urlsToCache = [
-  basePath + '/',
-  basePath + '/spelling_data.json',
-  basePath + '/manifest.json'
+  '/',
+  '/spelling_data.json',
+  '/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {

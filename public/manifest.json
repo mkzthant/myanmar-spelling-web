@@ -2,7 +2,7 @@
   "name": "မြန်မာစာလုံးပေါင်းသတ်ပုံ",
   "short_name": "သတ်ပုံ",
   "description": "Myanmar Spelling Dictionary Reference",
-  "start_url": "/myanmar-spelling-web/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#1e1e1e",

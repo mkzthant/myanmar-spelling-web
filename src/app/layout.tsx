@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "မြန်မာစာလုံးပေါင်းသတ်ပုံ | Myanmar Spelling Dictionary",
     description: "မြန်မာစာအဖွဲ့မှ ထုတ်ဝေသော စာလုံးပေါင်းသတ်ပုံကျမ်း (၂၀၀၃) ကို အလွယ်တကူ ရှာဖွေနိုင်သော Web App",
-    url: "https://mkzthant.github.io/myanmar-spelling-web/",
+    url: "https://mkzthant.github.io/",
     siteName: "Myanmar Spelling Dictionary",
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     locale: "my_MM",
     type: "website",
   },
-  manifest: "/myanmar-spelling-web/manifest.json",
+  manifest: "/manifest.json",
   themeColor: "#121212",
 };
 
@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="my">
       <head>
-        <link rel="apple-touch-icon" href="/myanmar-spelling-web/icon.svg" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
@@ -52,7 +52,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/myanmar-spelling-web/sw.js').then(function(registration) {
+                  navigator.serviceWorker.register('/sw.js').then(function(registration) {
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                   }, function(err) {
                     console.log('ServiceWorker registration failed: ', err);
