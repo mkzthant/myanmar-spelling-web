@@ -56,14 +56,15 @@ export default function Home() {
     return [];
   }, [allWords, search, activeAlpha]);
 
-  // When search changes, we want to clear the active alphabet visually
-  useEffect(() => {
-    if (search && activeAlpha) {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSearch(val);
+    if (val && activeAlpha) {
       setActiveAlpha('');
-    } else if (!search && !activeAlpha) {
+    } else if (!val && !activeAlpha) {
       setActiveAlpha('က');
     }
-  }, [search, activeAlpha]);
+  };
 
   const handleAlphabetClick = (alpha: string) => {
     setSearch('');
@@ -82,7 +83,7 @@ export default function Home() {
             className="search-input" 
             placeholder="စာလုံး ရှာဖွေရန်..." 
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearchChange}
           />
         </div>
       </div>
