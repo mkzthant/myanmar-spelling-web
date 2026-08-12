@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myanmar-spelling-cache-v1';
+const CACHE_NAME = 'myanmar-spelling-cache-v2';
 const basePath = '/myanmar-spelling-web';
 
 const urlsToCache = [
