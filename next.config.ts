@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  /* config options here */
+  basePath: '/myanmar-spelling-web',
 };
 
 export default nextConfig;

@@ -26,7 +26,8 @@ export default function Home() {
   useEffect(() => {
     const fetchStaticData = async () => {
       try {
-        const res = await fetch('/spelling_data.json');
+        const basePath = process.env.NODE_ENV === 'production' ? '/myanmar-spelling-web' : '';
+        const res = await fetch(`${basePath}/spelling_data.json`);
         const data = await res.json();
         setAllWords(data);
       } catch (error) {
