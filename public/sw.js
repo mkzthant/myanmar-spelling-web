@@ -1,10 +1,51 @@
-// This service worker intentionally does nothing.
-// It exists only to unregister old cached versions.
-self.addEventListener('install', () => self.skipWaiting());
+const CACHE_NAME = 'myanmar-spelling-data-v1';
+
+// Only cache the data file - never cache hashed JS/CSS
+const DATA_URL = '/spelling_data.json';
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      // Pre-cache only the big data file
+      return cache.add(DATA_URL);
+    }).catch(() => {
+      // Silently fail on install - don't block the page
+    })
+  );
+  self.skipWaiting();
+});
+
 self.addEventListener('activate', (event) => {
+  // Remove ALL old caches
   event.waitUntil(
     caches.keys().then((cacheNames) =>
-      Promise.all(cacheNames.map((name) => caches.delete(name)))
+      Promise.all(
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
+      )
     ).then(() => self.clients.claim())
   );
+});
+
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Only intercept the data JSON file
+  if (url.pathname.endsWith('spelling_data.json')) {
+    event.respondWith(
+      // Network first: always try fresh data, fallback to cache if offline
+      fetch(event.request)
+        .then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // For all other requests (HTML, CSS, JS): let browser handle normally
+  // Do NOT intercept - prevents hash filename conflicts
 });
