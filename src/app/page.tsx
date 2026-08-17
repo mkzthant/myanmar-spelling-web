@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Fuse from 'fuse.js';
 import Script from 'next/script';
+import Link from 'next/link';
 
 interface Word {
   id: number;
@@ -49,6 +50,16 @@ const CopyIcon = () => (
 const CheckIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="20 6 9 17 4 12"></polyline>
+  </svg>
+);
+
+const ShareIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="18" cy="5" r="3"></circle>
+    <circle cx="6" cy="12" r="3"></circle>
+    <circle cx="18" cy="19" r="3"></circle>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
   </svg>
 );
 
@@ -134,6 +145,18 @@ export default function Home() {
     });
   }, []);
 
+  const shareContent = useCallback((id: number, word: string) => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'မြန်မာစာလုံးပေါင်းသတ်ပုံ',
+        text: `${word}`,
+        url: `${window.location.origin}/word/${id}`
+      }).catch(console.error);
+    } else {
+      copyToClipboard(id, word);
+    }
+  }, [copyToClipboard]);
+
   return (
     <main className="container">
 
@@ -183,17 +206,26 @@ export default function Home() {
           {filteredWords.length > 0 ? (
             filteredWords.map((w) => (
               <div key={w.id} className="word-card">
-                <div>
-                  <div className="word-text">{w.word}</div>
+                <Link href={`/word/${w.id}`} style={{ textDecoration: 'none', flex: 1, color: 'inherit', display: 'block' }}>
+                  <div className="word-text" style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'inherit'}>{w.word}</div>
                   {w.note && <div className="word-note">{w.note}</div>}
+                </Link>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  <button 
+                    className={`copy-btn ${copiedId === w.id ? 'copied' : ''}`}
+                    onClick={() => copyToClipboard(w.id, w.word)}
+                    title="စာလုံးကူးယူရန် (Copy)"
+                  >
+                    {copiedId === w.id ? <CheckIcon /> : <CopyIcon />}
+                  </button>
+                  <button 
+                    className="copy-btn"
+                    onClick={() => shareContent(w.id, w.word)}
+                    title="မျှဝေရန် (Share)"
+                  >
+                    <ShareIcon />
+                  </button>
                 </div>
-                <button 
-                  className={`copy-btn ${copiedId === w.id ? 'copied' : ''}`}
-                  onClick={() => copyToClipboard(w.id, w.word)}
-                  title="စာလုံးကူးယူရန် (Copy)"
-                >
-                  {copiedId === w.id ? <CheckIcon /> : <CopyIcon />}
-                </button>
               </div>
             ))
           ) : (
