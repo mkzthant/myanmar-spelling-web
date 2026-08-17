@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Fuse from 'fuse.js';
+import Script from 'next/script';
 
 interface Word {
   id: number;
@@ -202,6 +203,17 @@ export default function Home() {
           )}
         </div>
       )}
+
+      {/* Adsterra Banner Ad */}
+      <div style={{ margin: '30px 0', display: 'flex', justifyContent: 'center', width: '100%', minHeight: '50px' }}>
+        <div id="container-1805853a00a27f487672c22a26b431f8"></div>
+        <Script 
+          id="adsterra-banner"
+          src="https://pl30889752.effectivecpmnetwork.com/1805853a00a27f487672c22a26b431f8/invoke.js"
+          strategy="lazyOnload"
+          data-cfasync="false"
+        />
+      </div>
     </main>
   );
 }
