@@ -204,28 +204,43 @@ export default function Home() {
       ) : (
         <div className="words-container">
           {filteredWords.length > 0 ? (
-            filteredWords.map((w) => (
-              <div key={w.id} className="word-card">
-                <Link href={`/word/${w.id}`} style={{ textDecoration: 'none', flex: 1, color: 'inherit', display: 'block' }}>
-                  <div className="word-text" style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'inherit'}>{w.word}</div>
-                  {w.note && <div className="word-note">{w.note}</div>}
-                </Link>
-                <div style={{ display: 'flex', gap: '4px' }}>
-                  <button 
-                    className={`copy-btn ${copiedId === w.id ? 'copied' : ''}`}
-                    onClick={() => copyToClipboard(w.id, w.word)}
-                    title="စာလုံးကူးယူရန် (Copy)"
-                  >
-                    {copiedId === w.id ? <CheckIcon /> : <CopyIcon />}
-                  </button>
-                  <button 
-                    className="copy-btn"
-                    onClick={() => shareContent(w.id, w.word)}
-                    title="မျှဝေရန် (Share)"
-                  >
-                    <ShareIcon />
-                  </button>
+            filteredWords.map((w, index) => (
+              <div key={w.id} style={{ display: 'contents' }}>
+                <div className="word-card">
+                  <Link href={`/word/${w.id}`} style={{ textDecoration: 'none', flex: 1, color: 'inherit', display: 'block' }}>
+                    <div className="word-text" style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'inherit'}>{w.word}</div>
+                    {w.note && <div className="word-note">{w.note}</div>}
+                  </Link>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <button 
+                      className={`copy-btn ${copiedId === w.id ? 'copied' : ''}`}
+                      onClick={() => copyToClipboard(w.id, w.word)}
+                      title="စာလုံးကူးယူရန် (Copy)"
+                    >
+                      {copiedId === w.id ? <CheckIcon /> : <CopyIcon />}
+                    </button>
+                    <button 
+                      className="copy-btn"
+                      onClick={() => shareContent(w.id, w.word)}
+                      title="မျှဝေရန် (Share)"
+                    >
+                      <ShareIcon />
+                    </button>
+                  </div>
                 </div>
+                
+                {/* Native Banner Ad after the 8th item (or at the end if list is short) */}
+                {(index === 7 || (filteredWords.length > 4 && filteredWords.length < 8 && index === filteredWords.length - 1)) && (
+                  <div style={{ gridColumn: '1 / -1', margin: '20px 0', display: 'flex', justifyContent: 'center', width: '100%', minHeight: '50px' }}>
+                    <div id="container-1805853a00a27f487672c22a26b431f8"></div>
+                    <Script 
+                      id={`adsterra-banner-${index}`}
+                      src="https://pl30889752.effectivecpmnetwork.com/1805853a00a27f487672c22a26b431f8/invoke.js"
+                      strategy="lazyOnload"
+                      data-cfasync="false"
+                    />
+                  </div>
+                )}
               </div>
             ))
           ) : (
@@ -235,17 +250,6 @@ export default function Home() {
           )}
         </div>
       )}
-
-      {/* Adsterra Banner Ad */}
-      <div style={{ margin: '30px 0', display: 'flex', justifyContent: 'center', width: '100%', minHeight: '50px' }}>
-        <div id="container-1805853a00a27f487672c22a26b431f8"></div>
-        <Script 
-          id="adsterra-banner"
-          src="https://pl30889752.effectivecpmnetwork.com/1805853a00a27f487672c22a26b431f8/invoke.js"
-          strategy="lazyOnload"
-          data-cfasync="false"
-        />
-      </div>
     </main>
   );
 }
