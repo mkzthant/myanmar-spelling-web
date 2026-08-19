@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myanmar-spelling-data-v1';
+const CACHE_NAME = 'myanmar-spelling-data-v2';
 
 // Only cache the data file - never cache hashed JS/CSS
 const DATA_URL = '/spelling_data.json';
@@ -34,14 +34,17 @@ self.addEventListener('fetch', (event) => {
   // Only intercept the data JSON file
   if (url.pathname.endsWith('spelling_data.json')) {
     event.respondWith(
-      // Network first: always try fresh data, fallback to cache if offline
-      fetch(event.request)
-        .then((response) => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
+      caches.match(event.request).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request).then((networkResponse) => {
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, networkResponse.clone());
+          });
+          return networkResponse;
+        }).catch(() => {
+          // Ignore network errors
+        });
+        return cachedResponse || fetchPromise;
+      })
     );
     return;
   }
