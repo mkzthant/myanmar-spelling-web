@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import NativeBanner from '../../../components/NativeBanner';
+import ShareActions from '../../../components/ShareActions';
 
 interface Word {
   id: number;
@@ -61,6 +63,18 @@ export default async function WordPage(props: { params: Promise<{ id: string }> 
 
   return (
     <main className="container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'DefinedTerm',
+            name: wordData.word,
+            description: wordData.note || `${wordData.word} ၏ စာလုံးပေါင်းသတ်ပုံအမှန်`,
+            url: `https://mm-spelling.mnote.pp.ua/word/${wordData.id}`,
+          }),
+        }}
+      />
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
         <Link href="/" style={{ color: 'var(--primary)', textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
           ← နောက်သို့ (Back to Search)
@@ -73,7 +87,13 @@ export default async function WordPage(props: { params: Promise<{ id: string }> 
               {wordData.note}
             </p>
           )}
+          <ShareActions text={wordData.word} path={`/word/${wordData.id}`} />
         </div>
+
+        <NativeBanner
+          src="https://pl30889752.effectivecpmnetwork.com/1805853a00a27f487672c22a26b431f8/invoke.js"
+          containerId="container-1805853a00a27f487672c22a26b431f8"
+        />
       </div>
     </main>
   );
