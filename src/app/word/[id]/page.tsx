@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import NativeBanner from '../../../components/NativeBanner';
 import ShareActions from '../../../components/ShareActions';
+import BannerAd from '../../../components/BannerAd';
 
 interface Word {
   id: number;
@@ -93,6 +94,11 @@ export default async function WordPage(props: { params: Promise<{ id: string }> 
         <NativeBanner
           src="https://pl30889752.effectivecpmnetwork.com/1805853a00a27f487672c22a26b431f8/invoke.js"
           containerId="container-1805853a00a27f487672c22a26b431f8"
+        />
+
+        <BannerAd
+          keyId="505ce4882e690f6fc4c4b34c53a08a37"
+          src="https://www.highrevenueformat.com/505ce4882e690f6fc4c4b34c53a08a37/invoke.js"
         />
       </div>
     </main>
